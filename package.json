@@ -1,0 +1,22 @@
+{
+  "name": "noice_parking",
+  "version": "1.0.0",
+  "description": "Parking assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devilpreet/noice_parking_js_xprs.git"
+  },
+  "author": "Sarbpreet Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devilpreet/noice_parking_js_xprs/issues"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "homepage": "https://github.com/devilpreet/noice_parking_js_xprs#readme"
+}
