@@ -17,10 +17,14 @@ module.exports = function (app) {
     })
 
     app.put('/parking/spaces/:id/slots',(req,res) => {
-        return res.status(200).send("Park Car")
+        var spaceId = req.params.id
+        var ticket = service.parkCar(spaceId)
+        return res.status(200).send(ticket)
     })
 
-    app.delete('/parking/spaces/:id/slots', (req,res) => {
-        return res.status(200).send("Unpark Car")
+    app.delete('/parking/:id', (req,res) => {
+        var ticketId = req.params.id
+        var ticket = service.unparkCar(ticketId)
+        return res.status(200).send(ticket)
     })
 }

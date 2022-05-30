@@ -27,7 +27,7 @@ var slots = [
 var tickets = [
     {
         id: 1,
-        slotid:1,
+        slotId:1,
         amount:-1,
         inTime: '"2022-05-30T12:18:05.851Z"',
         outTime: -1
@@ -87,7 +87,7 @@ function unparkCar(ticketId) {
             throw new Error("Used Parking Ticket. Car already out. Report if stolen !!")
         }else {
             //Unpark it
-            var slot = slots.find(s => s.id==ticket.slotid)
+            var slot = slots.find(s => s.id==ticket.slotId)
             slot.slotstatus=0;
             var outTime = new Date();
             ticket.outTime = JSON.stringify(outTime)
@@ -95,7 +95,7 @@ function unparkCar(ticketId) {
             //Update amount
             ticket.amount = logic.calculateAmount(inTime,outTime)
             //Note: Shallow copy until complex object
-            var {slotid, ...toReturn} = ticket
+            var {slotId, ...toReturn} = ticket
             toReturn.spaceId = slot.spaceId;
             toReturn.slotNo = slot.slotNo;
             return toReturn
