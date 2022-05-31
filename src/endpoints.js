@@ -30,6 +30,7 @@ module.exports = function (app) {
     app.put('/parking/spaces/:id/slots',async (req,res,next) => {
         try {
             var spaceId = req.params.id
+            validateNumber(spaceId,"Invalid spaceId url paramater.")
             var ticket = await service.parkCar(spaceId)
             return res.status(200).send(ticket)
         } catch (e) {
@@ -40,6 +41,7 @@ module.exports = function (app) {
     app.delete('/parking/:id', async (req,res,next) => {
         try{
             var ticketId = req.params.id
+            validateNumber(ticketId,"Invalid parking ticket url parameter.")
             var ticket = await service.unparkCar(ticketId)
             return res.status(200).send(ticket)
         }catch (e) {

@@ -17,24 +17,44 @@ const errorObjectGenerator = (error) => {
 }
 
 const validateNumber = (num,message) => {
-    if(num instanceof Number && num >= 1) {
+    if(typeof num == "number" && (num >= 1)) {
         return true;
     }else {
-        throw new ValidationError(message)
+        throw new ValidationError(message+" value: "+num)
     }
 }
 
 class ValidationError extends Error {
     constructor(message) {
         super(message);
-        this.name = "ValidationError";
+        this.name = "Validation Error";
         this.statusCode = 500;
         this.errMsg = message
     }
 }
 
+class DataValueError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "Data Error";
+        this.statusCode = 501;
+        this.errMsg = message
+    } 
+}
+
+class DatabaseError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "Database Error";
+        this.statusCode = 502;
+        this.errMsg = message
+    } 
+}
+
 module.exports = {
     errorResponder,
     validateNumber,
-    ValidationError
+    ValidationError,
+    DataValueError,
+    DatabaseError
 }

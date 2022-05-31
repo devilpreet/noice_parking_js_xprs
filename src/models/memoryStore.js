@@ -1,3 +1,4 @@
+const { DataValueError } = require("../error");
 var logic = require("../logic")
 
 /* Initialization */
@@ -80,7 +81,7 @@ function parkCar(spaceId) {
             inTime: inTime,
         };
     }else {
-        throw new Error("No available slot in the parking space!")
+        throw new DataValueError("No available slot in the parking space!")
     }
 }
 
@@ -90,7 +91,7 @@ function unparkCar(ticketId) {
     if(ticket) {
         //Check if parking is already completed
         if(!logic.isParked(ticket)) {
-            throw new Error("Used Parking Ticket. Car already out. Report if stolen !!")
+            throw new DataValueError("Used Parking Ticket. Car already out. Report if stolen !!")
         }else {
             //Unpark it
             var slot = slots.find(s => s.id==ticket.slotId)
@@ -108,7 +109,7 @@ function unparkCar(ticketId) {
         }
         
     }else {
-        throw new Error(`No Parking ticket found with Id: ${ticketId}`)
+        throw new DataValueError(`No Parking ticket found with Id: ${ticketId}`)
     }
 }
 
