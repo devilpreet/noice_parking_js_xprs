@@ -1,11 +1,73 @@
 # noice_parking_js_xprs
+Dockerized setup
+Swapable InMemory / Postgres store
+Testing: jest and supertest
+Database: Docker, PGAdmin, Setup Scripts
 
-Version: 0.0.1
+## Setup
+
+### Option A: Docker Compose
+Two containers are created.  
+One for postgres database with sample data.  
+Other for REST parking api
+Refer [docker-compose.yml](./docker-compose.yml)  
+
+To only setup database refer [setup README](./setup/README.md)
+
+### Option B: Running Docker Containers Manually
+Use [Dockerfile](./Dockerfile) to build image and start local container
+
+### Local Run
+```sh
+npm install
+node index.js
+```
+
+## TESTING
+`jest` Framework is used for unit testing.  
+`supertest` Frameework is used for endpoint testing.
+```sh
+npm test
+```
+
+## Endpoints
+Parking Spaces are called `Spaces` (id,totalSlots)  
+Each Space consist of `Slots`. (id,spaceId,slotNo,slotStatus)  
+Parking `Tickets` are issued against a parking Slot.
+
+> #### /parking/spaces
+`POST` creates a parking space
+`GET` lists all parking spaces
+
+> #### /parking/spaces/:spaceId/slots
+`PUT` parks the car giving `ticketid` for unparking
+
+> #### /parking/:ticketId
+`DELETE` unparks the car generating amout  
+* Assumption: Unparking should not be concerned with accessing relevant parking space
+* Helps to find car, providing spaceId and slotNo on checkout
+
+## Database Design
+`
+Spaces (id,totalSlots)  
+Slots (id,spaceId,slotNo,slotStatus) 
+Tickets (id, slotId, amount, inTime, outTime)
+`
+
+### Considerations
+* Tables have important keys as Primary or Foreign. Indexes are automatically created.
+* 
+
+
+### Worklog
+
+> Version: 0.0.1
 First Analysis:
 Major Use Cases:  
   * User able to park car. 
   * User able to unpark already parked car
   * Calculate the parking amount on unparking
+  * Design included just parking and slots.
 
 Not Included
 * No use case beyond generating bill, like payment etc.
@@ -27,7 +89,7 @@ Worklog:
 * Basic model service refactoring
 * Choosing jest as testing module
 
-Version 0.0.2
+> Version 0.0.2
 
 Database Design
 spaces -> id, totalSlots
@@ -37,9 +99,15 @@ tickets -> id,slotId,inTime,outTime,amount
 Using PostgresDB as Database. Install docker image.
 Setup file in scripts/Dockerfile
 
+Evaluating ORMS. Choose against it.
+Designing simple Postgres model layer
+
+> Review
+Dockerized setup
 ? Error Handling
 ? User management
 ? Validation Layer
+? Add swagger ui
 
 
 
