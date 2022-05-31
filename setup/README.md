@@ -1,6 +1,7 @@
 # Database 
 
 ## A. Create via Docker-compose
+This automatically creates the docker container, creates tables and load sample data.
 ```sh
 docker-compose -f ./setup/docker-compose-db-only.yml up
 ```
