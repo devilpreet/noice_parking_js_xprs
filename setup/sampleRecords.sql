@@ -1,3 +1,5 @@
+\c noice_parking;
+
 INSERT INTO parking.spaces VALUES (DEFAULT,2);
 
 INSERT INTO parking.slots VALUES (DEFAULT,1,1,1);

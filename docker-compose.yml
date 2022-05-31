@@ -10,8 +10,8 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      - ./createDB.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      - ./sampleRecords.sql:/docker-entrypoint-initdb.d/samples.sql
+      - ./setup/createDB.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./setup/sampleRecords.sql:/docker-entrypoint-initdb.d/samples.sql
   api:
     depends_on:
       - db

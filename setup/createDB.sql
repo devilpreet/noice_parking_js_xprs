@@ -1,6 +1,7 @@
 CREATE DATABASE noice_parking;
+\c noice_parking;
 
-CREATE SCHEMA IF NOT EXISTS parking;
+CREATE SCHEMA parking;
 
 CREATE TABLE IF NOT EXISTS parking.spaces (
     id SERIAL PRIMARY KEY,
