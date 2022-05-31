@@ -6,7 +6,9 @@ const errorResponder = (err, req, res, next) => {
 }
 
 const errorObjectGenerator = (error) => {
-    if(error instanceof ValidationError) {
+    if(error instanceof ValidationError ||
+        error instanceof DataValueError ||
+        error instanceof DatabaseError) {
         return error
     }else {
         return {
@@ -17,9 +19,14 @@ const errorObjectGenerator = (error) => {
 }
 
 const validateNumber = (num,message) => {
-    if(typeof num == "number" && (num >= 1)) {
-        return true;
-    }else {
+    try {
+        var val = parseInt(num)
+        if(val >= 1) {
+            return val;
+        }else {
+            throw new ValidationError(message+" value: "+num)
+        }
+    }catch(e) {
         throw new ValidationError(message+" value: "+num)
     }
 }
