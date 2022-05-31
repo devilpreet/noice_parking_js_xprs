@@ -1,4 +1,5 @@
 var service = require('./service')
+var {ValidationError, validateNumber} = require('./error')
 
 module.exports = function (app) {
     app.get('/healthCheck', (req,res) => {
@@ -17,6 +18,7 @@ module.exports = function (app) {
     app.post('/parking/spaces', async (req,res,next) => {
         try {
             const {totalSlots} = req.body
+            validateNumber(totalSlots,"Invalid/Missing totalSlots. Should be number > =1.")
             console.log("Creating space with nb slots: ", totalSlots)
             var ticket = await service.createParkingSpace(totalSlots)
             return res.status(200).send(ticket)
