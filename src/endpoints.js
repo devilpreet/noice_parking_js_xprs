@@ -6,29 +6,43 @@ module.exports = function (app) {
     })
 
     app.get('/parking/spaces', async (req,res) => {
-        var spaces = await service.getParkingSpaces()
-        return res.status(200).send(spaces)
+        try { 
+            var spaces = await service.getParkingSpaces()
+            return res.status(200).send(spaces)
+        } catch (e) {
+            next(e)
+        }
     })
 
-    app.post('/parking/spaces', async (req,res) => {
-        const {totalSlots} = req.body
-        console.log("Creating space with nb slots: ", totalSlots)
-        var ticket = await service.createParkingSpace(totalSlots)
-        return res.status(200).send(ticket)
+    app.post('/parking/spaces', async (req,res,next) => {
+        try {
+            const {totalSlots} = req.body
+            console.log("Creating space with nb slots: ", totalSlots)
+            var ticket = await service.createParkingSpace(totalSlots)
+            return res.status(200).send(ticket)
+        } catch (e) {
+            next(e)
+        }
     })
 
-    app.put('/parking/spaces/:id/slots',async (req,res) => {
-        
-        var spaceId = req.params.id
-        var ticket = await service.parkCar(spaceId)
-        return res.status(200).send(ticket)
+    app.put('/parking/spaces/:id/slots',async (req,res,next) => {
+        try {
+            var spaceId = req.params.id
+            var ticket = await service.parkCar(spaceId)
+            return res.status(200).send(ticket)
+        } catch (e) {
+            next(e)
+        }
     })
 
-    app.delete('/parking/:id', async (req,res) => {
-        console.log(req.body,req.params)
-        var ticketId = req.params.id
-        var ticket = await service.unparkCar(ticketId)
-        return res.status(200).send(ticket)
+    app.delete('/parking/:id', async (req,res,next) => {
+        try{
+            var ticketId = req.params.id
+            var ticket = await service.unparkCar(ticketId)
+            return res.status(200).send(ticket)
+        }catch (e) {
+            next(e)
+        }
     })
 
     return app;

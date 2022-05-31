@@ -48,16 +48,16 @@ Parking `Tickets` are issued against a parking Slot.
 * Helps to find car, providing spaceId and slotNo on checkout
 
 ## Database Design
-`
-Spaces (id,totalSlots)  
-Slots (id,spaceId,slotNo,slotStatus) 
-Tickets (id, slotId, amount, inTime, outTime)
-`
+
+`Spaces (id,totalSlots)`  
+`Slots (id,spaceId,slotNo,slotStatus)`  
+`Tickets (id, slotId, amount, inTime, outTime)`  
 
 ### Considerations
 * Tables have important keys as Primary or Foreign. Indexes are automatically created.
-* 
-
+* Spaces are only created once. No updates required
+* SlotStatus 0 (Unparked/Available) 1(Parked) can allow for futher extension in case of other states
+* Tickets can be cleaned and moved to historical table for optimization
 
 ### Worklog
 
@@ -103,11 +103,11 @@ Evaluating ORMS. Choose against it.
 Designing simple Postgres model layer
 
 > Review
-Dockerized setup
-? Error Handling
-? User management
-? Validation Layer
-? Add swagger ui
+* Dockerized setup completed
+* Basic Error Handling Added / Categories of error can be divided if needed
+? User management 
+? Validation Layer  
+? Add swagger ui  
 
 
 
