@@ -9,7 +9,7 @@ class StoreManager {
             this._store = memStore
         }else if(config.STORE_TYPE==1) {
             this._store = pStore
-            console.log("TODO Initialized with POSTGRES store")
+            console.log("Initialized with POSTGRES store")
         }else {
             // Stop the application Error !!
             throw new Error("Incorrect store type found in configuration: ", STORE_TYPE)
@@ -31,10 +31,6 @@ class StoreManager {
 
     parkCar(spaceId) {
         return this._store.parkCar(spaceId);
-    }
-
-    getAvailableSlots(spaceId) {
-        return this._store.getAvailableSlots(spaceId);
     }
 }
 

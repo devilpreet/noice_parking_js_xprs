@@ -113,14 +113,9 @@ function unparkCar(ticketId) {
     }
 }
 
-function getAvailableSlots(spaceId) {
-    return slots.filter(s => s.spaceId==spaceId && s.slotstatus==0).length
-}
-
 module.exports = {
     getAllSpaces,
     createSpace,
     parkCar,
-    unparkCar,
-    getAvailableSlots
+    unparkCar
 }

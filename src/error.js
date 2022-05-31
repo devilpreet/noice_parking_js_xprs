@@ -20,8 +20,8 @@ const errorObjectGenerator = (error) => {
 
 const validateNumber = (num,message) => {
     try {
-        var val = parseInt(num)
-        if(val >= 1) {
+        var val = Number(num)
+        if(val >= 1 && val%1 ===0) {
             return val;
         }else {
             throw new ValidationError(message+" value: "+num)
