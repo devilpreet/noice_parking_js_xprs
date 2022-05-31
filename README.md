@@ -1,4 +1,7 @@
 # noice_parking_js_xprs
+
+API Doc publish URL: https://documenter.getpostman.com/view/2149754/Uz5DqHR2
+
 Dockerized setup
 Swapable InMemory / Postgres store
 Testing: jest and supertest
@@ -31,6 +34,10 @@ npm test
 ```
 
 ## Endpoints
+
+Published
+`
+
 Parking Spaces are called `Spaces` (id,totalSlots)  
 Each Space consist of `Slots`. (id,spaceId,slotNo,slotStatus)  
 Parking `Tickets` are issued against a parking Slot.
@@ -82,7 +89,6 @@ PUT to park the car providing carPlateId
 DELETE to get car and parking amount   
     (Delete chosen as we are freeing the parking slot resource)
 
-Worklog:
 * Simple memory based model implementaion
 * Docker upgrade -> OS Upgrade -> Brew installations
 * PGAdmin Docker installation
@@ -101,6 +107,8 @@ Setup file in scripts/Dockerfile
 
 Evaluating ORMS. Choose against it.
 Designing simple Postgres model layer
+
+Add supertest
 
 > Review
 * Dockerized setup completed
