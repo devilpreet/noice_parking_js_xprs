@@ -10,7 +10,7 @@ function calculateAmount(carIn,carOut) {
 }
 
 function isParked(ticket) {
-    return ticket.amount == -1 && ticket.outTime == ''
+    return ticket.amount == -1
 }
 
 module.exports = {

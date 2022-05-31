@@ -6,7 +6,7 @@ module.exports = function (app) {
         return res.status(200).send({message: 'Healthy'})
     })
 
-    app.get('/parking/spaces', async (req,res) => {
+    app.get('/parking/spaces', async (req,res,next) => {
         try { 
             var spaces = await service.getParkingSpaces()
             return res.status(200).send(spaces)

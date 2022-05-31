@@ -6,16 +6,11 @@ describe("Model Tests", () => {
         expect(model.getAllSpaces().length).toEqual(1)
     })
     
-    it("Should have an available slot", () => {
-        expect(model.getAvailableSlots(1)>=1).toBeTruthy()
-    })
-    
     it("Should create a new space", () => {
         var newSpace = model.createSpace(7)
         expect(newSpace.id).toEqual(2)
         expect(newSpace.totalSlots).toEqual(7)
         expect(model.getAllSpaces().length).toEqual(2)
-        expect(model.getAvailableSlots(2)).toEqual(7)
     })
 
     it("Should not accept invalid parking ticket", () => {

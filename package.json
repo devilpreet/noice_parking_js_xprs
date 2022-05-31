@@ -4,7 +4,7 @@
   "description": "Parking assignment",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "PRODUCTION=TRUE node index.js",
     "test": "jest --runInBand"
   },
   "repository": {

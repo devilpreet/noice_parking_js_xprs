@@ -6,11 +6,24 @@ var {
 
 var initOptions = {
     // Initialization Options
-    promiseLib: promise
+    promiseLib: promise,
+    error(error, e) {
+        if (e.cn) {
+            // A connection-related error;
+            //
+            // Connections are reported back with the password hashed,
+            // for safe errors logging, without exposing passwords.
+            console.log('CN:', e.cn);
+            console.log('EVENT:', error.message || error);
+        }
+    }
 };
 
 const pgp = require('pg-promise')(initOptions);
-const db = pgp(require('../config').DB);
+const URL = require('../config').DB_URL
+console.log("Connecting to DB Url: ",URL)
+
+const db = pgp(require('../config').DB_URL);
 
 function getAllSpaces() {
     return db.any('Select * from parking.spaces');
@@ -24,7 +37,6 @@ function createSpace(nbSlots) {
             for (var i = 0; i < nbSlots; i++) {
                 await t.none(`INSERT INTO parking.slots VALUES (DEFAULT,$1,$2,0);`, [space.id, i + 1])
             }
-            console.log("Parking space created: ", space)
             return space
         } catch (e) {
             throw new DatabaseError(e.message)
@@ -38,24 +50,22 @@ function parkCar(spaceId) {
             var slot = await t.one(`Select * FROM parking.slots WHERE spaceid=$1 AND slotstatus=0` +
                 `ORDER BY slotno LIMIT 1`, [spaceId])
             console.log(slot)
-            if (slot) {
-                //Create parking ticket
-                var inTime = JSON.stringify(new Date())
-                var ticket = await t.one(`INSERT INTO parking.tickets VALUES (DEFAULT,$1,-1,$2,'') RETURNING *`, [slot.id, inTime])
+            //Create parking ticket
+            var inTime = JSON.stringify(new Date())
+            var ticket = await t.one(`INSERT INTO parking.tickets VALUES (DEFAULT,$1,-1,$2,'') RETURNING *`, [slot.id, inTime])
 
-                //Update slot status
-                await t.none(`UPDATE parking.slots SET slotstatus=1 WHERE id=$1`, [slot.id])
-                return {
-                    id: ticket.id,
-                    spaceId: slot.spaceid,
-                    slotNo: slot.slotno,
-                    inTime: ticket.intime,
-                };
-            } else {
-                throw new DataValueError("No available slot in the parking space!")
-            }
+            //Update slot status
+            await t.none(`UPDATE parking.slots SET slotstatus=1 WHERE id=$1`, [slot.id])
+            return {
+                id: ticket.id,
+                spaceId: slot.spaceid,
+                slotNo: slot.slotno,
+                inTime: ticket.intime,
+            };
         } catch (e) {
-            throw new DatabaseError(e.message)
+            console.log(e)
+            if(e.received==0) throw new DataValueError("No available slot in the parking space!")
+            else throw new DatabaseError(e.message)
         }
     })
 }
@@ -85,6 +95,7 @@ function unparkCar(ticketId) {
                 throw new DataValueError("Used Parking Ticket. Car already out. Report if stolen !!")
             }
         } catch (e) {
+            console.log(e)
             throw new DatabaseError(e.message)
         }
     })
