@@ -74,7 +74,7 @@ function parkCar(spaceId) {
         }
         tickets[tickets.length]=newTicket
         return {
-            id: tickets.length+1,
+            id: newTicket.id,
             spaceId: available.spaceId,
             slotNo: available.slotNo,
             inTime: inTime,

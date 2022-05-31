@@ -24,9 +24,8 @@ describe("Model Tests", () => {
 
     it("Should be able to park a car", () => {
         var ticket1 = model.parkCar(1)
-        expect(ticket1.id).toEqual(2)
-        expect(ticket1.slotId).toEqual(2)
-        expect(ticket1.amount).toEqual(-1)
+        expect(ticket1.id).toBe(2)
+        expect(ticket1.slotNo).toEqual(2)
         var inTime = new Date(JSON.parse(ticket1.inTime))
         //Since it has just been parked <10 seconds
         expect(new Date()-inTime<10000).toBeTruthy()

@@ -8,5 +8,4 @@ describe('Endpoint Tests',  () =>  {
         .expect(200,done)
     })
 
-    it('Should be able to park')
 })

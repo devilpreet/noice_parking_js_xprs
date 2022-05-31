@@ -4,7 +4,7 @@ module.exports = {
 
     /* Storage Switch based on Strategy Pattern */
     //STORE_TYPES: ["IN_MEMORY", "POSTGRES"],
-    STORE_TYPE: 1,
+    STORE_TYPE: 0,
 
     DB: 'postgresql://myusername:mypassword@localhost:5432/noice_parking'
 }
