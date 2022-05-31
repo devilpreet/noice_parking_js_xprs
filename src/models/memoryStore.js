@@ -30,7 +30,7 @@ var tickets = [
         slotId:1,
         amount:-1,
         inTime: '"2022-05-30T12:18:05.851Z"',
-        outTime: -1
+        outTime: ''
     }
 ]
 
@@ -64,15 +64,21 @@ function parkCar(spaceId) {
         //Park car
         available.slotstatus=1
         //Create parking ticket
+        var inTime = JSON.stringify(new Date())
         var newTicket = {
             id: tickets.length+1,
             slotId: available.id,
             amount:-1,
-            inTime: JSON.stringify(new Date()),
-            outTime:-1
+            inTime: inTime,
+            outTime:''
         }
         tickets[tickets.length]=newTicket
-        return newTicket;
+        return {
+            id: tickets.length+1,
+            spaceId: available.spaceId,
+            slotNo: available.slotNo,
+            inTime: inTime,
+        };
     }else {
         throw new Error("No available slot in the parking space!")
     }
@@ -83,7 +89,7 @@ function unparkCar(ticketId) {
     var ticket = tickets.find(t => t.id==ticketId)
     if(ticket) {
         //Check if parking is already completed
-        if(ticket.outTime!=-1 || ticket.amount!= -1) {
+        if(!logic.isParked(ticket)) {
             throw new Error("Used Parking Ticket. Car already out. Report if stolen !!")
         }else {
             //Unpark it

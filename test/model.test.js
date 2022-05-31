@@ -33,7 +33,7 @@ describe("Model Tests", () => {
     })
 
 
-    it("Should not be able to park another car", () => {
+    it("Should NOT be able to park another car", () => {
         //All slots full
         expect(() => {model.parkCar(1)}).toThrow(Error)
     })
@@ -46,5 +46,12 @@ describe("Model Tests", () => {
         expect(ticket.outTime!=-1).toBeTruthy()
     })
 
+    it("Should unpark already parked car II", () => {
+        var ticket = model.unparkCar(2)
+        expect(ticket.amount!=-1).toBeTruthy()
+        expect(ticket.slotNo).toEqual(2)
+        expect(ticket.spaceId).toEqual(1)
+        expect(ticket.outTime!=-1).toBeTruthy()
+    })
     
 })

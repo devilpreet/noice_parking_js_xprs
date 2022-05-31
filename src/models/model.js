@@ -1,5 +1,6 @@
 var config = require("../config")
 var memStore = require("./memoryStore")
+var pStore = require("./postgresStore")
 
 class StoreManager {
     constructor() {
@@ -7,6 +8,7 @@ class StoreManager {
             console.log("Initialized with IN MEMORY store")
             this._store = memStore
         }else if(config.STORE_TYPE==1) {
+            this._store = pStore
             console.log("TODO Initialized with POSTGRES store")
         }else {
             // Stop the application Error !!

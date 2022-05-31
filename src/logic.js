@@ -9,6 +9,11 @@ function calculateAmount(carIn,carOut) {
     return (Math.floor(diffms/3600000)+1) * 10
 }
 
+function isParked(ticket) {
+    return ticket.amount == -1 && ticket.outTime == ''
+}
+
 module.exports = {
-    calculateAmount
+    calculateAmount,
+    isParked
 }

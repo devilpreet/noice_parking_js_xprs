@@ -30,8 +30,9 @@ Worklog:
 Version 0.0.2
 
 Database Design
-parkingSpaces -> id, totalSlots
-parkingSlots -> id,spaceId,slotNo,status,parkingTimestamp
+spaces -> id, totalSlots
+slots -> id,spaceId,slotNo,status
+tickets -> id,slotId,inTime,outTime,amount
 
 Using PostgresDB as Database. Install docker image.
 Setup file in scripts/Dockerfile
